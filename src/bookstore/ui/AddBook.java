@@ -441,7 +441,7 @@ public class AddBook extends javax.swing.JDialog {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel?", "", JOptionPane.YES_NO_OPTION);
-        if (x != 1) {
+        if (x == 0) {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelActionPerformed

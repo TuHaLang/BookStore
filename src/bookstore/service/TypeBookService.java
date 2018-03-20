@@ -50,7 +50,7 @@ public class TypeBookService{
             Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
             PreparedStatement preStatement = conn.prepareStatement(sql);
             preStatement.setInt(1, id);
-            return preStatement.execute();
+            return ! preStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
             return false;

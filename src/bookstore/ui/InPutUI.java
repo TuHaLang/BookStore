@@ -94,7 +94,7 @@ public class InPutUI extends javax.swing.JFrame {
         jToolBar1.add(btnAddBook);
 
         btnAddTypeBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/typebook-icon.png"))); // NOI18N
-        btnAddTypeBook.setText("Add TypeBook");
+        btnAddTypeBook.setText("TypeBook");
         btnAddTypeBook.setFocusable(false);
         btnAddTypeBook.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAddTypeBook.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

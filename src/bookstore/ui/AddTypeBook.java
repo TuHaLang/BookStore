@@ -96,6 +96,11 @@ public class AddTypeBook extends javax.swing.JDialog {
 
         btnDelete.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnFinish.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         btnFinish.setText("Finish");
@@ -242,6 +247,23 @@ public class AddTypeBook extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnFinishActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Note: removing a type book will remove all books of that type!", JOptionPane.YES_NO_OPTION);
+        if(x == 0){
+            TypeBookService tbs = new TypeBookService();
+            Vector<TypeBook> listTypeBook = new TypeBookService().SelectAll();
+       
+            if(tbs.Delete(listTypeBook.get(jTable1.getSelectedRow()).getId())){
+                JOptionPane.showMessageDialog(null, "Delete successful !");
+                this.loadData();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Delete faild !");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
     
     private void loadData(){
         Vector<TypeBook> listTypeBook = new TypeBookService().SelectAll();
@@ -314,7 +336,7 @@ public class AddTypeBook extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTable jTable1;
+    protected javax.swing.JTable jTable1;
     private javax.swing.JLabel lblName;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables

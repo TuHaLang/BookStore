@@ -139,6 +139,7 @@ public class EditTypeBook extends javax.swing.JDialog {
                 EditTypeBook dialog = new EditTypeBook(new javax.swing.JFrame(), true);
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
+                
             }
         });
     }
