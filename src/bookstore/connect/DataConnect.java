@@ -5,7 +5,6 @@
  */
 package bookstore.connect;
 
-import bookstore.connect.GetConnectDB;
 import bookstore.ui.AdminUI;
 import bookstore.ui.InPutUI;
 import bookstore.ui.OutPutUI;
