@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,18 +44,48 @@ public class TypeBookService{
     }
 
     
-    public void Delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean Delete(int id) {
+        try {
+            String sql = "DELETE FROM typebook WHERE id=?;";
+            Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setInt(1, id);
+            return preStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     
-    public void Update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean Update(int id, String newName) {
+        PreparedStatement preStatement = null;
+        try {
+            String sql = "UPDATE typebook SET name=? WHERE id=?;";
+            Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
+            preStatement = conn.prepareStatement(sql);
+            preStatement.setInt(1, id);
+            preStatement.setString(2, newName);
+            return preStatement.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
 
+    }
     
-    public void Add() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean Add(String name) {
+        try {
+            String sql = "INSERT INTO typebook VALUES(?,?);";
+            Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setInt(1, 1);
+            preStatement.setString(2, name);
+            return preStatement.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public static String codeToName(int id){

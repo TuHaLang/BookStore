@@ -6,12 +6,16 @@
 package bookstore.ui;
 
 import bookstore.connect.GetConnectDB;
-import bookstore.io.FileTamp;
+import bookstore.io.FileBookTamp;
 import bookstore.model.Book;
 import bookstore.model.TypeBook;
+import bookstore.service.BookService;
 import bookstore.service.TypeBookService;
+import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.ucanaccess.converters.Functions;
 
 /**
  *
@@ -347,14 +352,14 @@ public class AddBook extends javax.swing.JDialog {
                                 book.setPublicationDate(new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText()));
                                 book.setAmount(Integer.parseInt(txtAmount.getText()));
 
-                                if (FileTamp.readFile("fileio/tamp.dat") != null) {
-                                    listBook = FileTamp.readFile("fileio/tamp.dat");
+                                if (FileBookTamp.readFile("fileio/tamp.dat") != null) {
+                                    listBook = FileBookTamp.readFile("fileio/tamp.dat");
                                     listBook.add(book);
                                 } else {
                                     listBook.add(book);
                                 }
 
-                                FileTamp.saveFile(listBook, "fileio/tamp.dat");
+                                FileBookTamp.saveFile(listBook, "fileio/tamp.dat");
 
                                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                                 model.setNumRows(0);
@@ -401,18 +406,30 @@ public class AddBook extends javax.swing.JDialog {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.removeRow(jTable1.getSelectedRow());
-        ArrayList<Book> listBook = FileTamp.readFile("fileio/tamp.dat");
-        listBook.remove(jTable1.getSelectedRow()+1);
-        FileTamp.saveFile(listBook, "fileio/tamp.dat");
+        ArrayList<Book> listBook = FileBookTamp.readFile("fileio/tamp.dat");
+        listBook.remove(jTable1.getSelectedRow() + 1);
+        FileBookTamp.saveFile(listBook, "fileio/tamp.dat");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try {
-            // TODO add your handling code here:
-            String sql = "INSERT INTO book()";
-            PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddBook.class.getName()).log(Level.SEVERE, null, ex);
+        ArrayList<Book> listBook = FileBookTamp.readFile("fileio/tamp.dat");
+        if (listBook != null) {
+            boolean test = true;
+            for (Book book : listBook) {
+                Format format = new SimpleDateFormat("dd/MM/yyyy");
+                String dateInString = format.format(book.getPublicationDate());
+                BookService bs = new BookService();
+                if (!bs.Add(book.getName(), book.getPrice(), book.getIdType(), book.getAuthor(), dateInString, book.getAmount())) {
+                    test = false;
+                }
+            }
+            if (test) {
+                JOptionPane.showMessageDialog(null, "Save successful !");
+                ArrayList<Book> listBook1 = new ArrayList<>();
+                FileBookTamp.saveFile(listBook1, "fileio/tamp.dat");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "List empty !");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -423,8 +440,8 @@ public class AddBook extends javax.swing.JDialog {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel?","", JOptionPane.YES_NO_OPTION);
-        if(x != 1){
+        int x = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel?", "", JOptionPane.YES_NO_OPTION);
+        if (x != 1) {
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelActionPerformed

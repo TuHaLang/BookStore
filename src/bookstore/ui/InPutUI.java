@@ -8,6 +8,7 @@ package bookstore.ui;
 import bookstore.model.Book;
 import bookstore.service.BookService;
 import bookstore.service.TypeBookService;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -304,7 +305,9 @@ public class InPutUI extends javax.swing.JFrame {
             object.add(book.getPrice());
             object.add(TypeBookService.codeToName(book.getIdType()));
             object.add(book.getAuthor());
-            object.add(book.getPublicationDate());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String dateInString = sdf.format(book.getPublicationDate());
+            object.add(dateInString);
             object.add(book.getAmount());
             model.addRow(object);
         }

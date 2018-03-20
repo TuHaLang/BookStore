@@ -11,13 +11,12 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author root
  */
-public class FileTamp {
+public class FileBookTamp {
 
     public static void saveFile(ArrayList<Book> listBookTamp, String path) {
         try {
