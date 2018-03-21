@@ -14,11 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,8 +57,18 @@ public class BookService {
         return listBook;
     }
 
-    public void Delete() {
+    public boolean Delete(int id) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "DELETE FROM book WHERE id=?;";
+            Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
+            PreparedStatement preStatement = conn.prepareStatement(sql);
+            preStatement.setInt(1, id);
+            return !preStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     public boolean Add(String name, int price, int idtype, String author, String dateInString, int amount) {
@@ -76,7 +84,7 @@ public class BookService {
             preStatement.setString(5, author);
             preStatement.setString(6, dateInString);
             preStatement.setInt(7, amount);
-            return preStatement.executeUpdate() >= 1; 
+            return preStatement.executeUpdate() >= 1;
 
         } catch (SQLException ex) {
             //Logger.getLogger(AddBook.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,8 +92,27 @@ public class BookService {
         }
     }
 
-    public void Update() {
+    public boolean Update(Book book) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PreparedStatement preStatement = null;
+        try {
+            String sql = "UPDATE typebook SET name=?, price=?, idtype=?, author=?, publicationdate=?, amount=? WHERE id=?;";
+            Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
+            preStatement = conn.prepareStatement(sql);
+            preStatement.setString(1, book.getName());
+            preStatement.setInt(2, book.getPrice());
+            preStatement.setInt(3, book.getIdType());
+            preStatement.setString(4, book.getAuthor());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            preStatement.setString(5, sdf.format(book.getPublicationDate()));
+            preStatement.setInt(6, book.getAmount());
+            preStatement.setInt(7, book.getId());
+            
+            return preStatement.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
 }

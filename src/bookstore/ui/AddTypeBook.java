@@ -9,6 +9,7 @@ import bookstore.model.TypeBook;
 import bookstore.service.TypeBookService;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,8 +25,13 @@ public class AddTypeBook extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    public AddTypeBook(){
+
+    public AddTypeBook() {
         super();
+    }
+
+    public JTable getJtable1() {
+        return jTable1;
     }
 
     /**
@@ -56,7 +62,7 @@ public class AddTypeBook extends javax.swing.JDialog {
         jSplitPane1.setDividerSize(1);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LIST", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(213, 29, 29))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LIST", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(213, 29, 29))); // NOI18N
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -155,7 +161,7 @@ public class AddTypeBook extends javax.swing.JDialog {
 
         jSplitPane1.setRightComponent(jPanel2);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ADD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(225, 38, 38))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ADD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(225, 38, 38))); // NOI18N
         jPanel1.setName(""); // NOI18N
 
         lblName.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
@@ -221,26 +227,37 @@ public class AddTypeBook extends javax.swing.JDialog {
 
     private void btnAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeActionPerformed
         // TODO add your handling code here:
-        if(txtName.getText().matches("[0-9a-zA-Z áàạảãâấậẩầẫăắằẳẵặđéẻèẽẹêểếềễệìỉíịĩòóỏõọôổốồỗộơởớờỡợùủúụũưửừứựữýỷỵỹỳÁẢẠÀÃẤẦẬẨẪÂĂẲẮẰẴẶĐÉẺÈẸẼÊỂẾỀỆỄÍỈÌỊĨÓÒỎỌÕÔỐỔỒỘỖƠỜỞỚỢỠÚỦÙỤŨƯỪỨỬỰỮÝỶỲỴỸ]+")){
-            if(new TypeBookService().Add(txtName.getText())){
+        if (txtName.getText().matches("[0-9a-zA-Z áàạảãâấậẩầẫăắằẳẵặđéẻèẽẹêểếềễệìỉíịĩòóỏõọôổốồỗộơởớờỡợùủúụũưửừứựữýỷỵỹỳÁẢẠÀÃẤẦẬẨẪÂĂẲẮẰẴẶĐÉẺÈẸẼÊỂẾỀỆỄÍỈÌỊĨÓÒỎỌÕÔỐỔỒỘỖƠỜỞỚỢỠÚỦÙỤŨƯỪỨỬỰỮÝỶỲỴỸ]+")) {
+            if (new TypeBookService().Add(txtName.getText())) {
                 JOptionPane.showMessageDialog(null, "Add type book successful !");
                 this.loadData();
                 txtName.setText("");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Add type book faild !");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Invalid name !");
         }
-        
+
     }//GEN-LAST:event_btnAddTypeActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        EditTypeBook dialog = new EditTypeBook();
-        dialog.main();
+        //JOptionPane.showMessageDialog(null, jTable1.getSelectedRow());
+        if (jTable1.getSelectedRow() != -1) {
+//            EditTypeBook dialog = new EditTypeBook();
+//            dialog.main();
+//            this.loadData();
+            String newName = JOptionPane.showInputDialog(null, "Enter new name: ");
+            Vector<TypeBook> listType = new TypeBookService().SelectAll();
+            if (new TypeBookService().Update(listType.get(jTable1.getSelectedRow()).getId(), newName)) {
+                JOptionPane.showMessageDialog(null, "Update successful !");
+                this.loadData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Update faild !");
+            }
+        }
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishActionPerformed
@@ -250,26 +267,30 @@ public class AddTypeBook extends javax.swing.JDialog {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Note: removing a type book will remove all books of that type!", JOptionPane.YES_NO_OPTION);
-        if(x == 0){
-            TypeBookService tbs = new TypeBookService();
-            Vector<TypeBook> listTypeBook = new TypeBookService().SelectAll();
-       
-            if(tbs.Delete(listTypeBook.get(jTable1.getSelectedRow()).getId())){
-                JOptionPane.showMessageDialog(null, "Delete successful !");
-                this.loadData();
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Delete faild !");
+        if (jTable1.getSelectedRow() > -1) {
+            int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete? \nNote: removing a type book will remove all books of that type!", "", JOptionPane.YES_NO_OPTION);
+            if (x == 0) {
+                TypeBookService tbs = new TypeBookService();
+                Vector<TypeBook> listTypeBook = new TypeBookService().SelectAll();
+
+                if (tbs.Delete(listTypeBook.get(jTable1.getSelectedRow()).getId())) {
+                    JOptionPane.showMessageDialog(null, "Delete successful !");
+                    this.loadData();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Delete faild !");
+                }
             }
         }
+        else{
+            JOptionPane.showMessageDialog(null, "You have not selected a row yet !");
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
-    
-    private void loadData(){
+
+    private void loadData() {
         Vector<TypeBook> listTypeBook = new TypeBookService().SelectAll();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        for(TypeBook typeBook : listTypeBook){
+        for (TypeBook typeBook : listTypeBook) {
             Vector<Object> object = new Vector<>();
             object.add(typeBook.getId());
             object.add(typeBook.getName());
@@ -277,8 +298,7 @@ public class AddTypeBook extends javax.swing.JDialog {
             model.addRow(object);
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -311,17 +331,11 @@ public class AddTypeBook extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AddTypeBook dialog = new AddTypeBook(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
                 dialog.loadData();
                 dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
-                
+
             }
         });
     }
@@ -336,7 +350,7 @@ public class AddTypeBook extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    protected javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblName;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables

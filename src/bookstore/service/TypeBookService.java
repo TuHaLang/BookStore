@@ -64,8 +64,10 @@ public class TypeBookService{
             String sql = "UPDATE typebook SET name=? WHERE id=?;";
             Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
             preStatement = conn.prepareStatement(sql);
-            preStatement.setInt(1, id);
-            preStatement.setString(2, newName);
+            
+            preStatement.setString(1, newName);
+            preStatement.setInt(2, id);
+            
             return preStatement.executeUpdate() >= 1;
         } catch (SQLException ex) {
             Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
