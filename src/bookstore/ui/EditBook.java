@@ -222,14 +222,17 @@ public class EditBook extends javax.swing.JDialog {
                     if (txtDate.getText().matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")) {
                         if (txtAmount.getText().matches("[0-9]{1,}")) {
                             try {
+                                book.setId(Integer.parseInt(txtID.getText()));
                                 book.setName(txtName.getText());
                                 book.setPrice(Integer.parseInt(txtPrice.getText()));
                                 book.setIdType(TypeBookService.nameToCode((String) jcbType.getSelectedItem()));
                                 book.setAuthor(txtAuthor.getText());
                                 book.setPublicationDate(new SimpleDateFormat("dd/MM/yyyy").parse(txtDate.getText()));
                                 book.setAmount(Integer.parseInt(txtAmount.getText()));
+                                
                                 if(new BookService().Update(book)){
                                     JOptionPane.showMessageDialog(null, "Update successful !");
+                                    this.dispose();
                                 }
                                 else{
                                     JOptionPane.showMessageDialog(null, "Update faild !");

@@ -9,6 +9,7 @@ import bookstore.model.Book;
 import bookstore.service.BookService;
 import bookstore.service.TypeBookService;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -35,15 +36,25 @@ public class InPutUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jToolBar1 = new javax.swing.JToolBar();
-        btnSearch = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
         btnAddBook = new javax.swing.JButton();
         btnAddTypeBook = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         spListBook = new javax.swing.JScrollPane();
         tableListBook = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jckId = new javax.swing.JCheckBox();
+        jckName = new javax.swing.JCheckBox();
+        jckType = new javax.swing.JCheckBox();
+        jckAuthor = new javax.swing.JCheckBox();
+        jckAll = new javax.swing.JCheckBox();
+        txtSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemLogout = new javax.swing.JMenuItem();
@@ -61,13 +72,6 @@ public class InPutUI extends javax.swing.JFrame {
         setTitle("AddBook");
 
         jToolBar1.setRollover(true);
-
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/search-icon.png"))); // NOI18N
-        btnSearch.setText("Search");
-        btnSearch.setFocusable(false);
-        btnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnSearch);
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/refresh-icon.jpg"))); // NOI18N
         btnRefresh.setText("Refresh");
@@ -129,6 +133,18 @@ public class InPutUI extends javax.swing.JFrame {
         });
         jToolBar1.add(btnEdit);
 
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/logout-icon copy.jpg"))); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setFocusable(false);
+        btnLogout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLogout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnLogout);
+
         spListBook.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ListBook", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(237, 18, 18))); // NOI18N
         spListBook.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         spListBook.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -162,6 +178,100 @@ public class InPutUI extends javax.swing.JFrame {
             }
         });
         spListBook.setViewportView(tableListBook);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search by", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        buttonGroup1.add(jckId);
+        jckId.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jckId.setText("ID");
+
+        buttonGroup1.add(jckName);
+        jckName.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jckName.setText("Name");
+
+        buttonGroup1.add(jckType);
+        jckType.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jckType.setText("Type book");
+
+        buttonGroup1.add(jckAuthor);
+        jckAuthor.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jckAuthor.setText("Author");
+
+        buttonGroup1.add(jckAll);
+        jckAll.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jckAll.setText("All");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jckId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jckName, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jckType, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jckAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jckAll, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jckId)
+                    .addComponent(jckName)
+                    .addComponent(jckAll)
+                    .addComponent(jckAuthor)
+                    .addComponent(jckType))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        txtSearch.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(255, 0, 0));
+
+        btnSearch.setBackground(new java.awt.Color(255, 255, 255));
+        btnSearch.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/search-flat.png"))); // NOI18N
+        btnSearch.setFocusable(false);
+        btnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         menuFile.setText("File");
 
@@ -237,18 +347,19 @@ public class InPutUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(spListBook)
-                .addContainerGap())
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(spListBook)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spListBook, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(spListBook, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -279,7 +390,7 @@ public class InPutUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         AddBook dialog = new AddBook();
         dialog.main();
-        this.loadData();
+        this.loadData(new BookService().SelectAll());
 
     }//GEN-LAST:event_btnAddBookActionPerformed
 
@@ -289,21 +400,21 @@ public class InPutUI extends javax.swing.JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
-        loadData();
+        loadData(new BookService().SelectAll());
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnAddTypeBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeBookActionPerformed
         // TODO add your handling code here:
         AddTypeBook dialog = new AddTypeBook();
         dialog.main();
-        this.loadData();
+        this.loadData(new BookService().SelectAll());
     }//GEN-LAST:event_btnAddTypeBookActionPerformed
 
     private void menuItemAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddTypeActionPerformed
         // TODO add your handling code here:
         AddTypeBook dialog = new AddTypeBook();
         dialog.main();
-        this.loadData();
+        this.loadData(new BookService().SelectAll());
     }//GEN-LAST:event_menuItemAddTypeActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -316,31 +427,82 @@ public class InPutUI extends javax.swing.JFrame {
 
                 if (bs.Delete(listBook.get(tableListBook.getSelectedRow()).getId())) {
                     JOptionPane.showMessageDialog(null, "Delete successful !");
-                    this.loadData();
+                    this.loadData(new BookService().SelectAll());
                 } else {
                     JOptionPane.showMessageDialog(null, "Delete faild !");
                 }
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "You have not selected a row yet !");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        if(tableListBook.getSelectedRow() > -1){
+        if (tableListBook.getSelectedRow() > -1) {
             EditBook dialog = new EditBook();
             dialog.main(tableListBook.getSelectedRow());
-        }
-        else{
+            this.loadData(new BookService().SelectAll());
+        } else {
             JOptionPane.showMessageDialog(null, "You have not selected a row yet !");
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Logout sucessfully !");
+        LoginSystem ui = new LoginSystem();
+        ui.main();
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        if (jckAuthor.isSelected()) {
+            Vector<Book> listBook = new BookService().searchBy("author", txtSearch.getText());
+            if (listBook.size()>0) {
+                this.loadData(listBook);
+            } else {
+                JOptionPane.showMessageDialog(null, "Can not found !");
+            }
+        } else if (jckId.isSelected()) {
+            Vector<Book> listBook = new BookService().searchBy("id", txtSearch.getText());
+            if (listBook.size()>0) {
+                this.loadData(listBook);
+            } else {
+                JOptionPane.showMessageDialog(null, "Can not found !");
+            }
+        } else if (jckName.isSelected()) {
+            Vector<Book> listBook = new BookService().searchBy("name", txtSearch.getText());
+            if(listBook.size()>0){
+                this.loadData(listBook);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Can not found !");
+            }
+        } else if (jckType.isSelected()) {
+            Vector<Book> listBook = new BookService().searchByIdType(new TypeBookService().search(txtSearch.getText()));
+            if(listBook.size()>0){
+                this.loadData(listBook);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Can not found !");
+            }
+        } else if (jckAll.isSelected()) {
+            Vector<Book> listBook = new BookService().searchByAll(txtSearch.getText());
+            if(listBook.size()>0){
+                this.loadData(listBook);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Can not found !");
+            }
+        }
+
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     //load data from database to table
-    private void loadData() {
-        Vector<Book> listBook = new BookService().SelectAll();
+    private void loadData(Vector<Book> listBook) {
+        //Vector<Book> listBook = new BookService().SelectAll();
         DefaultTableModel model = (DefaultTableModel) tableListBook.getModel();
         model.setNumRows(0);
         for (Book book : listBook) {
@@ -391,7 +553,9 @@ public class InPutUI extends javax.swing.JFrame {
                 InPutUI ui = new InPutUI();
                 ui.setLocationRelativeTo(null);
                 ui.setVisible(true);
-                ui.loadData();
+                ui.jckAll.setSelected(true);
+                ui.loadData(new BookService().SelectAll());
+                //ui.jckAll.setSelected(true);
             }
         });
     }
@@ -401,11 +565,20 @@ public class InPutUI extends javax.swing.JFrame {
     private javax.swing.JButton btnAddTypeBook;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSearch;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JCheckBox jckAll;
+    private javax.swing.JCheckBox jckAuthor;
+    private javax.swing.JCheckBox jckId;
+    private javax.swing.JCheckBox jckName;
+    private javax.swing.JCheckBox jckType;
     private javax.swing.JMenu menuAbout;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -418,5 +591,6 @@ public class InPutUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JScrollPane spListBook;
     private javax.swing.JTable tableListBook;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

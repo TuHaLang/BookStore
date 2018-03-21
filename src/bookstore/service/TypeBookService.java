@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -139,5 +140,22 @@ public class TypeBookService{
             e.printStackTrace();
         }
         return amount;
+    }
+    
+    public Vector<Integer> search(String keyWord){
+        Vector<Integer> listId = new Vector<>();
+        try {
+            String sql = "SELECT id FROM typebook WHERE name like '%" + keyWord + "%';";
+            PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareCall(sql);
+            ResultSet result = preStatement.executeQuery();
+            while(result.next()){
+                listId.add(result.getInt("id"));
+            }
+            return listId;
+        } catch (SQLException ex) {
+            Logger.getLogger(TypeBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
     }
 }

@@ -89,7 +89,7 @@
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="lblAuthor" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="51" max="32767" attributes="0"/>
+                                          <EmptySpace pref="56" max="32767" attributes="0"/>
                                           <Component id="txtAuthor" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -107,16 +107,13 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblAmount" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                                   <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                                  <Component id="txtAmount" max="32767" attributes="0"/>
-                                              </Group>
+                                              <Component id="txtAmount" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -162,7 +159,7 @@
                               <Component id="lblAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtAmount" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <EmptySpace pref="82" max="32767" attributes="0"/>
                           <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
