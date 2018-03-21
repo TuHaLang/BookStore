@@ -110,6 +110,11 @@ public class InPutUI extends javax.swing.JFrame {
         btnDelete.setFocusable(false);
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnDelete);
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/edit-icon.jpg"))); // NOI18N
@@ -117,6 +122,11 @@ public class InPutUI extends javax.swing.JFrame {
         btnEdit.setFocusable(false);
         btnEdit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEdit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnEdit);
 
         spListBook.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ListBook", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(237, 18, 18))); // NOI18N
@@ -269,6 +279,8 @@ public class InPutUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         AddBook dialog = new AddBook();
         dialog.main();
+        this.loadData();
+
     }//GEN-LAST:event_btnAddBookActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -284,21 +296,54 @@ public class InPutUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         AddTypeBook dialog = new AddTypeBook();
         dialog.main();
+        this.loadData();
     }//GEN-LAST:event_btnAddTypeBookActionPerformed
 
     private void menuItemAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAddTypeActionPerformed
         // TODO add your handling code here:
         AddTypeBook dialog = new AddTypeBook();
         dialog.main();
+        this.loadData();
     }//GEN-LAST:event_menuItemAddTypeActionPerformed
-    
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        if (tableListBook.getSelectedRow() > -1) {
+            int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "", JOptionPane.YES_NO_OPTION);
+            if (x == 0) {
+                BookService bs = new BookService();
+                Vector<Book> listBook = new BookService().SelectAll();
+
+                if (bs.Delete(listBook.get(tableListBook.getSelectedRow()).getId())) {
+                    JOptionPane.showMessageDialog(null, "Delete successful !");
+                    this.loadData();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Delete faild !");
+                }
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You have not selected a row yet !");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        if(tableListBook.getSelectedRow() > -1){
+            EditBook dialog = new EditBook();
+            dialog.main(tableListBook.getSelectedRow());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You have not selected a row yet !");
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
     //load data from database to table
-    
-    private void loadData(){
+    private void loadData() {
         Vector<Book> listBook = new BookService().SelectAll();
         DefaultTableModel model = (DefaultTableModel) tableListBook.getModel();
         model.setNumRows(0);
-        for(Book book : listBook){
+        for (Book book : listBook) {
             Vector<Object> object = new Vector<>();
             object.add(book.getId());
             object.add(book.getName());
@@ -312,6 +357,7 @@ public class InPutUI extends javax.swing.JFrame {
             model.addRow(object);
         }
     }
+
     /**
      * @param args the command line arguments
      */
