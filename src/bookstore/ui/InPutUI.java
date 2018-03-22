@@ -60,7 +60,6 @@ public class InPutUI extends javax.swing.JFrame {
         menuItemLogout = new javax.swing.JMenuItem();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
-        menuItemSearch = new javax.swing.JMenuItem();
         menuItemAddBook = new javax.swing.JMenuItem();
         menuItemAddType = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
@@ -297,21 +296,12 @@ public class InPutUI extends javax.swing.JFrame {
 
         menuEdit.setText("Edit");
 
-        menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemSearch.setText("Search");
-        menuItemSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSearchActionPerformed(evt);
-            }
-        });
-        menuEdit.add(menuItemSearch);
-
-        menuItemAddBook.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemAddBook.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         menuItemAddBook.setText("AddBook");
         menuEdit.add(menuItemAddBook);
 
         menuItemAddType.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        menuItemAddType.setText("AddTypeBook");
+        menuItemAddType.setText("TypeBook");
         menuItemAddType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddTypeActionPerformed(evt);
@@ -321,6 +311,11 @@ public class InPutUI extends javax.swing.JFrame {
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setText("Delete");
+        menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemDeleteActionPerformed(evt);
+            }
+        });
         menuEdit.add(menuItemDelete);
 
         menuItemEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
@@ -364,10 +359,6 @@ public class InPutUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuItemSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemSearchActionPerformed
 
     private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
         // TODO add your handling code here:
@@ -500,6 +491,26 @@ public class InPutUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void menuItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDeleteActionPerformed
+        // TODO add your handling code here:
+        if (tableListBook.getSelectedRow() > -1) {
+            int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "", JOptionPane.YES_NO_OPTION);
+            if (x == 0) {
+                BookService bs = new BookService();
+                Vector<Book> listBook = new BookService().SelectAll();
+
+                if (bs.Delete(listBook.get(tableListBook.getSelectedRow()).getId())) {
+                    JOptionPane.showMessageDialog(null, "Delete successful !");
+                    this.loadData(new BookService().SelectAll());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Delete faild !");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "You have not selected a row yet !");
+        }
+    }//GEN-LAST:event_menuItemDeleteActionPerformed
+
     //load data from database to table
     private void loadData(Vector<Book> listBook) {
         //Vector<Book> listBook = new BookService().SelectAll();
@@ -588,7 +599,6 @@ public class InPutUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemEdit;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemLogout;
-    private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JScrollPane spListBook;
     private javax.swing.JTable tableListBook;
     private javax.swing.JTextField txtSearch;
