@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Bookstore/src/bookstore/ui/AdminUI.java</file>
-            <file>file:/D:/Bookstore/src/bookstore/service/BookService.java</file>
-            <file>file:/D:/Bookstore/src/bookstore/ui/InPutUI.java</file>
-            <file>file:/D:/Bookstore/src/bookstore/ui/AddBook.java</file>
-            <file>file:/D:/Bookstore/src/bookstore/service/TypeBookService.java</file>
-            <file>file:/D:/Bookstore/src/bookstore/ui/EditBook.java</file>
-=======
-            <file>file:/root/eclipse-workspace/Bookstore/src/bookstore/ui/OutPutUI.java</file>
->>>>>>> cf635042559fa4087c15ac560a6dea3a9629e561
+            <file>file:/D:/Bookstore/src/bookstore/service/ListBookService.java</file>
+            <file>file:/D:/Bookstore/src/bookstore/ui/OutPutUI.java</file>
+            <file>file:/D:/Bookstore/src/bookstore/model/Customer.java</file>
+            <file>file:/D:/Bookstore/src/bookstore/service/CustomerService.java</file>
         </group>
     </open-files>
 </project-private>

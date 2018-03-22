@@ -235,7 +235,7 @@ public class EditBook extends javax.swing.JDialog {
                                     this.dispose();
                                 }
                                 else{
-                                    JOptionPane.showMessageDialog(null, "Update faild !");
+                                    JOptionPane.showMessageDialog(null, "Update failed !");
                                 }
 
                             } catch (ParseException ex) {

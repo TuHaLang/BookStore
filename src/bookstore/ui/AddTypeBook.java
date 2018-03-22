@@ -233,7 +233,7 @@ public class AddTypeBook extends javax.swing.JDialog {
                 this.loadData();
                 txtName.setText("");
             } else {
-                JOptionPane.showMessageDialog(null, "Add type book faild !");
+                JOptionPane.showMessageDialog(null, "Add type book failed !");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Invalid name !");
@@ -254,7 +254,7 @@ public class AddTypeBook extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Update successful !");
                 this.loadData();
             } else {
-                JOptionPane.showMessageDialog(null, "Update faild !");
+                JOptionPane.showMessageDialog(null, "Update failed !");
             }
         }
 
@@ -277,7 +277,7 @@ public class AddTypeBook extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "Delete successful !");
                     this.loadData();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Delete faild !");
+                    JOptionPane.showMessageDialog(null, "Delete failed !");
                 }
             }
         }

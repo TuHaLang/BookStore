@@ -420,7 +420,7 @@ public class InPutUI extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Delete successful !");
                     this.loadData(new BookService().SelectAll());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Delete faild !");
+                    JOptionPane.showMessageDialog(null, "Delete failed !");
                 }
             }
         } else {
@@ -503,7 +503,7 @@ public class InPutUI extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Delete successful !");
                     this.loadData(new BookService().SelectAll());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Delete faild !");
+                    JOptionPane.showMessageDialog(null, "Delete failed !");
                 }
             }
         } else {

@@ -57,12 +57,10 @@ public class BookService {
             e.printStackTrace();
         }
 
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return listBook;
     }
 
     public boolean Delete(int id) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try {
             String sql = "DELETE FROM book WHERE id=?;";
             Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
@@ -76,7 +74,6 @@ public class BookService {
     }
 
     public boolean Add(String name, int price, int idtype, String author, String dateInString, int amount) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try {
             String sql = "INSERT INTO book( id, name, price, idtype, author, publicationdate, amount ) VALUES(?,?,?,?,?,?,?);";
             Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
@@ -91,16 +88,13 @@ public class BookService {
             return preStatement.executeUpdate() >= 1;
 
         } catch (SQLException ex) {
-            //Logger.getLogger(AddBook.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     public boolean Update(Book book) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
         try {
-            //JOptionPane.showMessageDialog(null, book.getName()+book.getPrice()+book.getIdType()+book.getAuthor()+book.getAmount()+book.getId());
             String sql = "UPDATE book SET name=?, price=?, idtype=?, author=?, publicationdate=?, amount=? WHERE id=?;";
             Connection conn = GetConnectDB.getConnectMSAccess("database/bookstore.accdb");
             PreparedStatement preStatement = conn.prepareStatement(sql);
@@ -186,7 +180,7 @@ public class BookService {
         Vector<Book> listSearched = new Vector<>();
         try {
             String sql;
-            sql = "SELECT * FROM book WHERE id LIKE '%" + keyWord + "%' OR name LIKE '%" + keyWord + "%' OR author LIKE '%" + keyWord + "%' OR price LIKE '%" + keyWord +"%' OR publicationdate LIKE '%" + keyWord +"%';";
+            sql = "SELECT * FROM book WHERE id LIKE '%" + keyWord + "%' OR name LIKE '%" + keyWord + "%' OR author LIKE '%" + keyWord + "%' OR price LIKE '%" + keyWord + "%' OR publicationdate LIKE '%" + keyWord + "%';";
             PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
             ResultSet result = preStatement.executeQuery();
             while (result.next()) {
@@ -212,5 +206,65 @@ public class BookService {
             Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public Book searchByNameAndAuthor(String name, String author) {
+        try {
+            Book book = new Book();
+            String sql = "SELECT * FROM book WHERE name=? and author=?";
+            PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
+            preStatement.setString(1, name);
+            preStatement.setString(2, author);
+            ResultSet result = preStatement.executeQuery();
+            if (result.next()) {
+                book.setId(result.getInt("id"));
+                book.setPrice(result.getInt("price"));
+                book.setIdType(result.getInt("idtype"));
+                book.setAuthor(result.getString("author"));
+                book.setAmount(result.getInt("amount"));
+                book.setName(result.getString("name"));
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    book.setPublicationDate(sdf.parse(result.getString("publicationdate")));
+                } catch (ParseException ex) {
+                    Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return book;
+        } catch (SQLException ex) {
+            Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public Vector<Book> getListBookFromId(Vector<Integer> listId){
+        Vector<Book> listBook = new Vector<Book>();
+        for (int id : listId) {
+            try {
+                String sql = "SELECT * FROM book WHERE id=" + id + ";";
+                PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
+                ResultSet result = preStatement.executeQuery();
+                while (result.next()) {
+                    Book book = new Book();
+                    book.setId(result.getInt("id"));
+                    book.setPrice(result.getInt("price"));
+                    book.setIdType(result.getInt("idtype"));
+                    book.setAuthor(result.getString("author"));
+                    book.setAmount(result.getInt("amount"));
+                    book.setName(result.getString("name"));
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        book.setPublicationDate(sdf.parse(result.getString("publicationdate")));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    listBook.add(book);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+        return listBook;
     }
 }
