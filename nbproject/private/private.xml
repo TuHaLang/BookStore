@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Bookstore/src/bookstore/service/ManagaService.java</file>
+            <file>file:/D:/Bookstore/src/bookstore/ui/AdminUI.java</file>
             <file>file:/D:/Bookstore/src/bookstore/service/ListBookService.java</file>
+            <file>file:/D:/Bookstore/src/bookstore/service/BookService.java</file>
             <file>file:/D:/Bookstore/src/bookstore/ui/OutPutUI.java</file>
             <file>file:/D:/Bookstore/src/bookstore/model/Customer.java</file>
             <file>file:/D:/Bookstore/src/bookstore/service/CustomerService.java</file>
+            <file>file:/D:/Bookstore/src/bookstore/model/Managa.java</file>
         </group>
     </open-files>
 </project-private>

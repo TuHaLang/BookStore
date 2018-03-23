@@ -6,17 +6,41 @@
 package bookstore.model;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  *
  * @author PHAM_HUNG
  */
 public class Managa {
+
     int idcustomer;
     Date dateBuy;
     int totalMoney;
+    String listid;
+
+    public String getListid() {
+        return listid;
+    }
+
+    public void setListid(String listid) {
+        this.listid = listid;
+    }
 
     public Managa() {
+    }
+
+    public Vector<Integer> getListId(String listid) {
+        Vector<Integer> listID = new Vector<>();
+        listid = listid.trim();
+        String list[] = listid.split(";");
+        for (int i = 0; i < list.length; i++) {
+            //if(list[i].matches("//d+") && ! list[i].equals(null)){
+            listID.add(Integer.parseInt(list[i]));
+            
+            //}
+        }
+        return listID;
     }
 
     public Managa(int idcustomer, Date dateBuy, int totalMoney) {
@@ -48,6 +72,5 @@ public class Managa {
     public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
     }
-    
-    
+
 }

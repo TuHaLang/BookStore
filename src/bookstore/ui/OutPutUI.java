@@ -15,6 +15,7 @@ import bookstore.service.ManagaService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Stack;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,7 @@ public class OutPutUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tablePanel = new javax.swing.JTabbedPane();
         panelSell = new javax.swing.JPanel();
@@ -76,8 +78,20 @@ public class OutPutUI extends javax.swing.JFrame {
         lbltotal = new javax.swing.JLabel();
         txtrepay = new javax.swing.JTextField();
         btnpay = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCaculate = new javax.swing.JButton();
         panelCustomer = new javax.swing.JPanel();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableListCustomer = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableDetail = new javax.swing.JTable();
+        jToolBar1 = new javax.swing.JToolBar();
+        jPanel5 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         panelProfit = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
@@ -273,11 +287,11 @@ public class OutPutUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        jButton1.setText("Calculate");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCaculate.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        btnCaculate.setText("Calculate");
+        btnCaculate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCaculateActionPerformed(evt);
             }
         });
 
@@ -307,7 +321,7 @@ public class OutPutUI extends javax.swing.JFrame {
                             .addComponent(txtrepay, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(122, 122, 122)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCaculate, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnpay)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -337,7 +351,7 @@ public class OutPutUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnpay)
-                    .addComponent(jButton1))
+                    .addComponent(btnCaculate))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -345,7 +359,7 @@ public class OutPutUI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -371,15 +385,156 @@ public class OutPutUI extends javax.swing.JFrame {
 
         tablePanel.addTab("Sell", panelSell);
 
+        jSplitPane2.setDividerLocation(300);
+
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "List customer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
+        tableListCustomer.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Address", "Phone"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableListCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableListCustomerMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableListCustomer);
+
+        jSplitPane2.setLeftComponent(jScrollPane2);
+
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        tableDetail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Purchase date", "IDbook", "NameBook", "Author", "Price"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tableDetail);
+
+        jSplitPane2.setRightComponent(jScrollPane3);
+
+        jToolBar1.setRollover(true);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sorted by", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        buttonGroup1.add(jCheckBox1);
+        jCheckBox1.setText("All");
+
+        buttonGroup1.add(jCheckBox2);
+        jCheckBox2.setText("Top");
+
+        buttonGroup1.add(jCheckBox3);
+        jCheckBox3.setText("Today");
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        jButton2.setText("Sort");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jCheckBox1)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBox2)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBox3)
+                .addGap(42, 42, 42)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox3)))
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bookstore/ui/refresh-icon.jpg"))); // NOI18N
+        jButton1.setText("Refresh");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCustomerLayout = new javax.swing.GroupLayout(panelCustomer);
         panelCustomer.setLayout(panelCustomerLayout);
         panelCustomerLayout.setHorizontalGroup(
             panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
+            .addGroup(panelCustomerLayout.createSequentialGroup()
+                .addGroup(panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCustomerLayout.createSequentialGroup()
+                        .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCustomerLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelCustomerLayout.setVerticalGroup(
             panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustomerLayout.createSequentialGroup()
+                .addGroup(panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCustomerLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCustomerLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tablePanel.addTab("Customer", panelCustomer);
@@ -388,11 +543,11 @@ public class OutPutUI extends javax.swing.JFrame {
         panelProfit.setLayout(panelProfitLayout);
         panelProfitLayout.setHorizontalGroup(
             panelProfitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
+            .addGap(0, 975, Short.MAX_VALUE)
         );
         panelProfitLayout.setVerticalGroup(
             panelProfitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
         );
 
         tablePanel.addTab("Profit", panelProfit);
@@ -405,9 +560,7 @@ public class OutPutUI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 501, Short.MAX_VALUE)
         );
 
         menuFile.setText("File");
@@ -443,7 +596,7 @@ public class OutPutUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,7 +620,9 @@ public class OutPutUI extends javax.swing.JFrame {
                     customer.setAddress(txtcustomeraddress.getText());
                     customer.setName(txtcustomername.getText());
                     customer.setPhone(txtcustomerphone.getText());
-                    new CustomerService().Add(customer);
+                    if(!new CustomerService().checkForExistence(customer.getName(), customer.getPhone(), customer.getAddress())){
+                        new CustomerService().Add(customer);
+                    }
                     new ListBookService().Add(new CustomerService().getIdCustomer(txtcustomername.getText(), txtcustomerphone.getText(), txtcustomeraddress.getText()), book.getId());
                     if (book != null && book.getName() != null) {
                         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
@@ -504,7 +659,14 @@ public class OutPutUI extends javax.swing.JFrame {
             String dateInString = sdf.format(today.getTime());
 
             managa.setIdcustomer(new CustomerService().getIdCustomer(txtcustomername.getText(), txtcustomerphone.getText(), txtcustomeraddress.getText()));
-
+            
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+            String listID="";
+            for(int i=0; i < jTable1.getRowCount(); i++){
+                listID += dtm.getValueAt(i, 0) + ";";
+            }
+            managa.setListid(listID);
+            
             try {
                 managa.setDateBuy(sdf.parse(dateInString));
             } catch (ParseException ex) {
@@ -530,7 +692,7 @@ public class OutPutUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnpayActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCaculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaculateActionPerformed
         // TODO add your handling code here:
         if (!txtpaid.getText().equals("") && !txtrepay.getText().equals("")) {
             int total = Integer.parseInt(txtpaid.getText()) - Integer.parseInt(txtrepay.getText());
@@ -542,8 +704,69 @@ public class OutPutUI extends javax.swing.JFrame {
                 btnpay.setEnabled(true);
             }
         }
+    }//GEN-LAST:event_btnCaculateActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.loadListCustomer();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+        this.showDetail();
+    }//GEN-LAST:event_jScrollPane2MouseClicked
+
+    private void tableListCustomerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListCustomerMousePressed
+        // TODO add your handling code here:
+        this.showDetail();
+    }//GEN-LAST:event_tableListCustomerMousePressed
+
+    
+    //load dữ liệu cho tableListCustomer
+    private void loadListCustomer(){
+        DefaultTableModel dtm = (DefaultTableModel) tableListCustomer.getModel();
+        Vector<Customer> listCustomer = new CustomerService().SelectAll();
+        dtm.setNumRows(0);
+        for(Customer customer : listCustomer){
+            Vector<Object> obj = new Vector<>();
+            obj.add(customer.getId());
+            obj.add(customer.getName());
+            obj.add(customer.getAddress());
+            obj.add(customer.getPhone());
+            dtm.addRow(obj);
+        }
+    }
+    
+    private void showDetail(){
+        DefaultTableModel dtm = (DefaultTableModel) tableListCustomer.getModel();
+        int indexRow = tableListCustomer.getSelectedRow();
+        if(indexRow != -1){
+            int idCustomer = (int) dtm.getValueAt(indexRow,0);
+            
+            Vector<Managa> listManaga = new ManagaService().searchForId(idCustomer, "idcustomer");
+            DefaultTableModel model = (DefaultTableModel) tableDetail.getModel();
+            for(Managa managa : listManaga){
+                Vector<Book> listBook = new BookService().getListBookFromId(managa.getListId(managa.getListid()));
+                
+                for(Book book : listBook){
+                   
+                    Vector<Object> obj = new Vector<>();
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+                    obj.add(sdf.format(managa.getDateBuy()));
+                    obj.add(book.getId());
+                    obj.add(book.getName());
+                    obj.add(book.getAuthor());
+                    obj.add(book.getPrice());
+                    model.addRow(obj);
+                }
+            }
+            
+            
+        }
+        
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -576,6 +799,8 @@ public class OutPutUI extends javax.swing.JFrame {
             public void run() {
                 OutPutUI ui = new OutPutUI();
                 ui.setLocationRelativeTo(null);
+                ui.loadListCustomer();
+      
                 ui.txttotal.setEditable(false);
                 ui.setVisible(true);
             }
@@ -583,17 +808,28 @@ public class OutPutUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCaculate;
     private javax.swing.JButton btnbuy;
     private javax.swing.JButton btnpay;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblCustomer;
     private javax.swing.JLabel lblauthor;
     private javax.swing.JLabel lblbook;
@@ -615,6 +851,8 @@ public class OutPutUI extends javax.swing.JFrame {
     private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelProfit;
     private javax.swing.JPanel panelSell;
+    private javax.swing.JTable tableDetail;
+    private javax.swing.JTable tableListCustomer;
     private javax.swing.JTabbedPane tablePanel;
     private javax.swing.JTextField txtauthor;
     private javax.swing.JTextField txtbookname;

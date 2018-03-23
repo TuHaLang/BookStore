@@ -34,6 +34,7 @@ public class ManagaService {
                 managa.setIdcustomer(result.getInt("idcustome"));
                 managa.setTotalMoney(result.getInt("totalmoney"));
                 String dateInString = result.getString("date");
+                managa.setListid(result.getString("listid"));
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
                 try {
                     managa.setDateBuy(sdf.parse(dateInString));
@@ -53,19 +54,48 @@ public class ManagaService {
     
     public boolean Add(Managa managa){
         try {
-            String sql = "INSERT INTO managa VALUES(?,?,?)";
+            String sql = "INSERT INTO managa VALUES(?,?,?,?)";
             PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
             String dateInString = sdf.format(managa.getDateBuy());
             preStatement.setString(1, dateInString);
             preStatement.setInt(2, managa.getIdcustomer());
             preStatement.setInt(3, managa.getTotalMoney());
+            preStatement.setString(4, managa.getListid());
             return preStatement.executeUpdate() >0;
         } catch (SQLException ex) {
             Logger.getLogger(ManagaService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         
+    }
+    
+    public Vector<Managa> searchForId(int id, String namePutIn){
+        try {
+            Vector<Managa> listManaga = new Vector<>();
+            String sql = "SELECT * FROM managa WHERE " + namePutIn + "=?";
+            PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
+            preStatement.setInt(1, id);
+            ResultSet result = preStatement.executeQuery();
+            while(result.next()){
+                Managa managa = new Managa();
+                managa.setIdcustomer(result.getInt("idcustomer"));
+                managa.setListid(result.getString("listid"));
+                managa.setTotalMoney(result.getInt("totalmoney"));
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                String dateInString = result.getString("date");
+                try {
+                    managa.setDateBuy(sdf.parse(dateInString));
+                } catch (ParseException ex) {
+                    Logger.getLogger(ManagaService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                listManaga.add(managa);
+            }
+            return listManaga;
+        } catch (SQLException ex) {
+            Logger.getLogger(ListBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
 }

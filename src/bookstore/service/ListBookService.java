@@ -7,7 +7,9 @@ package bookstore.service;
 
 import bookstore.connect.GetConnectDB;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +29,23 @@ public class ListBookService {
         } catch (SQLException ex) {
             Logger.getLogger(ListBookService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+    
+    public Vector<Integer> searchForId(int id, String namePutIn, String namePutOut){
+        try {
+            Vector<Integer> listId = new Vector<>();
+            String sql = "SELECT * FROM listbook WHERE " + namePutIn + "=?";
+            PreparedStatement preStatement = GetConnectDB.getConnectMSAccess("database/bookstore.accdb").prepareStatement(sql);
+            preStatement.setInt(1, id);
+            ResultSet result = preStatement.executeQuery();
+            while(result.next()){
+                listId.add(result.getInt(namePutOut));
+            }
+            return listId;
+        } catch (SQLException ex) {
+            Logger.getLogger(ListBookService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }

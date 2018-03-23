@@ -86,7 +86,10 @@ public class CustomerService {
             preStatement.setString(2, address);
             preStatement.setString(3, phone);
             ResultSet result = preStatement.executeQuery();
-            return result.next();
+            if(result.next()){
+                return true;
+            }
+            else return false;
         } catch (SQLException ex) {
             Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
